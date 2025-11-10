@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>For Cherry — I love you ❤️</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Particles background -->
+    <canvas id="particles"></canvas>
+    
+    <!-- Animated background shapes -->
+    <div class="bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+    
+    <!-- Main scene -->
+    <div class="scene">
+      <!-- 3D rotating heart with glow -->
+      <div class="heart-container">
+        <div class="heart-glow"></div>
+        <div class="heart-3d">
+          <div class="heart-face front"></div>
+          <div class="heart-face back"></div>
+        </div>
+      </div>
+
+      <!-- Content card with glassmorphism -->
+      <div class="content-card">
+        <div class="sparkles">
+          <span class="sparkle">✨</span>
+          <span class="sparkle">💫</span>
+          <span class="sparkle">⭐</span>
+          <span class="sparkle">✨</span>
+          <span class="sparkle">💫</span>
+        </div>
+        
+        <h1 class="gradient-text">
+          <span class="letter" style="--i:0">C</span>
+          <span class="letter" style="--i:1">h</span>
+          <span class="letter" style="--i:2">e</span>
+          <span class="letter" style="--i:3">r</span>
+          <span class="letter" style="--i:4">r</span>
+          <span class="letter" style="--i:5">y</span>
+        </h1>
+        <h2 class="love-text">You Make My Heart Go 💕</h2>
+        <p class="sub-text">My favorite person in the whole world ✨</p>
+        
+        <div class="interactive-area">
+          <button class="modern-btn" id="clickMe">
+            <span class="btn-text">Click Me</span>
+            <span class="btn-icon">💖</span>
+          </button>
+        </div>
+        
+        <div class="floating-emojis">
+          <span class="float-emoji" style="--delay: 0s">💝</span>
+          <span class="float-emoji" style="--delay: 0.5s">💗</span>
+          <span class="float-emoji" style="--delay: 1s">💓</span>
+          <span class="float-emoji" style="--delay: 1.5s">💖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating hearts container -->
+    <div id="hearts-container"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
