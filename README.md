@@ -1,4 +1,4 @@
-# Animated Love Page 
+# Animated Page 
 A modern, interactive love animation featuring:
 - **Animated particle network background** with connected dots
 - **3D rotating heart** with CSS transforms
@@ -52,4 +52,5 @@ Want to personalize? I can:
 - Add more interactive effects
 - Export as video/GIF
 - Add photo gallery or slideshow
+
 
