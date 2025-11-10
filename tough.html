@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>I miss you — For Cherry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+      :root{
+        --bg1:#667eea;
+        --bg2:#764ba2;
+        --bg3:#f093fb;
+        --white:#fff;
+        --glow:#ff6b9d;
+        --stack-nudge-x: 80px; /* positive moves card slightly left */
+        --card-nudge-y: -40px; /* negative moves box UP, positive moves DOWN */
+      }
+      *{box-sizing:border-box;margin:0;padding:0}
+      html,body{height:100%}
+      body{
+        font-family:'Poppins', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+        animation: hueShift 14s ease-in-out infinite;
+        color:var(--white);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+      }
+      @keyframes hueShift{
+        0%,100%{ filter:hue-rotate(0deg) brightness(1)}
+        50%{ filter:hue-rotate(20deg) brightness(1.1)}
+      }
+      .container{
+        position:relative;
+        text-align:center;
+        padding:3rem 2rem;
+        width:min(900px, 92vw);
+      }
+      .layout{
+        position:relative;
+        z-index:1;
+        width:min(1100px, 96vw);
+        margin:0 auto;
+        display:block;
+        padding-right: 0;
+      }
+      /* centered stack to place box above embed */
+      .stack{
+        position:fixed;
+        top:50%;
+        left:50%;
+        transform: translate(calc(-50% - var(--stack-nudge-x)), -50%);
+        z-index:1;
+        display:block;
+        width: min(92vw, 900px);
+        max-width: 900px;
+      }
+      /* extra animated twinkles background */
+      .twinkles{
+        position:fixed;
+        inset:0;
+        z-index:0;
+        pointer-events:none;
+        opacity:.25;
+        background-image:
+          radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.8) 50%, transparent 51%),
+          radial-gradient(2px 2px at 120px 80px, rgba(255,255,255,.7) 50%, transparent 51%),
+          radial-gradient(2px 2px at 200px 160px, rgba(255,255,255,.9) 50%, transparent 51%),
+          radial-gradient(2px 2px at 320px 40px, rgba(255,255,255,.6) 50%, transparent 51%),
+          radial-gradient(2px 2px at 420px 120px, rgba(255,255,255,.75) 50%, transparent 51%);
+        background-size: 480px 240px;
+        animation: twinkleDrift 24s linear infinite;
+        mix-blend-mode: screen;
+      }
+      @keyframes twinkleDrift{
+        0%{ background-position: 0 0 }
+        50%{ background-position: 240px -120px }
+        100%{ background-position: 0 0 }
+      }
+      /* robust parallax shapes behind */
+      .parallax{
+        position:fixed;
+        inset:-10vh -10vw;
+        z-index:0;
+        pointer-events:none;
+        overflow:hidden;
+      }
+      .layer{
+        position:absolute;
+        border-radius:50%;
+        filter: blur(30px);
+        opacity:.18;
+        mix-blend-mode: screen;
+        animation: drift 28s ease-in-out infinite;
+      }
+      .layer.l1{ width:520px; height:520px; background: radial-gradient(circle, rgba(255,255,255,.45), transparent 60%); top:-10%; left:-6%; animation-delay:0s}
+      .layer.l2{ width:420px; height:420px; background: radial-gradient(circle, rgba(255,255,255,.35), transparent 60%); bottom:-8%; right:-4%; animation-delay:6s}
+      .layer.l3{ width:360px; height:360px; background: radial-gradient(circle, rgba(255,255,255,.4), transparent 60%); top:30%; left:40%; animation-delay:12s}
+      .layer.l4{ width:280px; height:280px; background: radial-gradient(circle, rgba(255,255,255,.3), transparent 60%); bottom:20%; left:15%; animation-delay:18s}
+      @keyframes drift{
+        0%,100%{ transform: translate(0,0) scale(1) }
+        25%{ transform: translate(40px,-30px) scale(1.08) }
+        50%{ transform: translate(-30px,20px) scale(.95) }
+        75%{ transform: translate(20px,30px) scale(1.05) }
+      }
+      /* soft bokeh background */
+      .bokeh{
+        position:absolute;
+        inset:-20vh -20vw;
+        pointer-events:none;
+        z-index:0;
+      }
+      .dot{
+        position:absolute;
+        width:200px;height:200px;border-radius:50%;
+        background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
+        animation: floatDot 18s ease-in-out infinite;
+        filter: blur(1px);
+      }
+      .dot.d1{ top:10%; left:5%; animation-delay:0s}
+      .dot.d2{ bottom:8%; right:10%; width:260px;height:260px; animation-delay:4s}
+      .dot.d3{ top:50%; left:35%; width:180px;height:180px; animation-delay:8s}
+      @keyframes floatDot{
+        0%,100%{ transform:translate(0,0) scale(1); opacity:.5}
+        25%{ transform:translate(40px,-20px) scale(1.1); opacity:.7}
+        50%{ transform:translate(-10px,30px) scale(.95); opacity:.6}
+        75%{ transform:translate(-30px,-10px) scale(1.05); opacity:.75}
+      }
+      /* glass card */
+      .card{
+        position:relative;
+        z-index:1;
+        background:rgba(255,255,255,0.14);
+        border:1px solid rgba(255,255,255,0.32);
+        border-radius:36px;
+        padding:3rem 3.5rem;
+        backdrop-filter: blur(24px) saturate(160%);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 80px rgba(255,107,157,.25);
+        animation: cardIn .9s cubic-bezier(0.34,1.56,0.64,1) both;
+        margin: var(--card-nudge-y) auto 0;
+        width: max-content;
+        max-width: 100%;
+      }
+      .bottom-embed{
+        margin-top:1.25rem;
+        display:flex;
+        justify-content:center;
+      }
+      .bottom-embed .tenor-gif-embed,
+      .bottom-embed iframe{
+        width:220px !important;
+        height:auto !important;
+        border:0 !important;
+        box-shadow:none !important;
+        background: transparent !important;
+      }
+      /* embed below the box (outside card) */
+      .below-embed{
+        position:relative;
+        margin-top: 1.25rem;
+        display:flex;
+        justify-content:center;
+        z-index:1;
+        width: 100%;
+      }
+      .below-embed .tenor-gif-embed,
+      .below-embed iframe{
+        width:220px !important;
+        height:auto !important;
+        border:0 !important;
+        box-shadow:none !important;
+        background: transparent !important;
+        margin: 0 auto !important;
+      }
+      @media (max-width: 860px){
+        .layout{
+          width:min(760px, 94vw);
+          padding-right: 0;
+        }
+        .stack{
+          width: min(92vw, 680px);
+          /* no nudge on small screens */
+          transform: translate(-50%, -50%);
+        }
+        .card{
+          width: 100%;
+          padding: 2.25rem 2rem;
+          margin-top: 0; /* reset vertical nudge on small screens */
+        }
+        .bottom-embed .tenor-gif-embed,
+        .bottom-embed iframe{
+          width:140px !important;
+        }
+        .below-embed .tenor-gif-embed,
+        .below-embed iframe{
+          width:140px !important;
+        }
+      }
+      @keyframes cardIn{
+        from{ opacity:0; transform: translateY(30px) scale(.96) }
+        to  { opacity:1; transform: translateY(0) scale(1) }
+      }
+      .title{
+        font-size:clamp(2.6rem, 10vw, 6rem);
+        font-weight:900;
+        letter-spacing:.06em;
+        line-height:1.1;
+        margin-bottom:.75rem;
+        filter: drop-shadow(0 0 30px rgba(255,255,255,.35));
+        display:block;
+        text-align:center;
+        margin-left:auto;
+        margin-right:auto;
+        position:relative;
+      }
+      /* animated underline */
+      .title::after{
+        content:"";
+        position:absolute;
+        left:0; right:0; bottom:-8px;
+        height:8px;
+        background: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.9), rgba(255,255,255,.0));
+        border-radius:8px;
+        transform-origin:left;
+        transform: scaleX(0);
+        animation: underline 1.6s .4s cubic-bezier(.2,.8,.2,1) forwards;
+      }
+      @keyframes underline{
+        to{ transform: scaleX(1)}
+      }
+      /* per-letter wave for "I miss you" */
+      .wave{
+        display:inline-block;
+        color:#ffffff;
+        white-space: nowrap;
+        animation: glow 3s ease-in-out infinite;
+        text-shadow: 0 0 40px rgba(255,255,255,.45), 0 0 80px rgba(255,107,157,.35);
+      }
+      .wave .ch{
+        display:inline-block;
+        transform-origin: 50% 80%;
+        animation: waveY 1.6s ease-in-out infinite;
+      }
+      .wave .ch:nth-child(1){ animation-delay:.0s }
+      .wave .ch:nth-child(2){ animation-delay:.07s }
+      .wave .ch:nth-child(3){ animation-delay:.14s }
+      .wave .ch:nth-child(4){ animation-delay:.21s }
+      .wave .ch:nth-child(5){ animation-delay:.28s }
+      .wave .ch:nth-child(6){ animation-delay:.35s }
+      .wave .ch:nth-child(7){ animation-delay:.42s }
+      .wave .ch:nth-child(8){ animation-delay:.49s }
+      .wave .ch:nth-child(9){ animation-delay:.56s }
+      .wave .ch:nth-child(10){ animation-delay:.63s }
+      @keyframes waveY{
+        0%,100%{ transform: translateY(0) rotate(0deg) }
+        50%{ transform: translateY(-10px) rotate(-2deg) }
+      }
+      @keyframes glow{
+        0%,100%{ filter: drop-shadow(0 0 18px rgba(255,255,255,.35)) }
+        50%{ filter: drop-shadow(0 0 28px rgba(255,255,255,.65)) }
+      }
+      .sub{
+        margin-top:1rem;
+        font-size:clamp(1rem, 2.8vw, 1.25rem);
+        color: rgba(255,255,255,.95);
+        opacity:.95;
+        animation: fadeIn .8s .6s both;
+      }
+      @keyframes fadeIn{
+        from{ opacity:0; transform: translateY(6px)}
+        to{ opacity:1; transform: translateY(0)}
+      }
+      .actions{
+        margin-top:2rem;
+        display:flex;
+        justify-content:center;
+      }
+      .back{
+        appearance:none;
+        border:0;
+        background:linear-gradient(135deg, #ff0844, #ff6b9d);
+        color:var(--white);
+        padding:0.9rem 1.4rem;
+        border-radius:999px;
+        font-weight:700;
+        cursor:pointer;
+        box-shadow: 0 10px 24px rgba(255,8,68,.4);
+        transition: transform .2s ease, box-shadow .2s ease;
+        text-decoration:none;
+      }
+      .back:hover{ transform: translateY(-2px); box-shadow: 0 14px 30px rgba(255,8,68,.5) }
+      .hearts{
+        position:fixed; inset:0; pointer-events:none; z-index:2;
+      }
+      .h{ position:absolute; font-size:20px; animation: up 4s ease-out forwards; filter: drop-shadow(0 0 10px rgba(255,107,157,.8))}
+      @keyframes up{
+        0%{ transform: translateY(0) scale(0); opacity:0 }
+        10%{ transform: translateY(-20px) scale(1.2); opacity:1 }
+        50%{ transform: translateY(-50vh) scale(1) }
+        100%{ transform: translateY(-110vh) scale(.3); opacity:0 }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bokeh">
+        <span class="dot d1"></span>
+        <span class="dot d2"></span>
+        <span class="dot d3"></span>
+      </div>
+      <div class="twinkles"></div>
+      <div class="parallax">
+        <span class="layer l1"></span>
+        <span class="layer l2"></span>
+        <span class="layer l3"></span>
+        <span class="layer l4"></span>
+      </div>
+      <div class="layout">
+        <div class="card">
+          <h1 class="title">
+            <span class="wave" aria-label="Cherry ❤️">
+              <span class="ch">C</span><span class="ch">h</span><span class="ch">e</span><span class="ch">r</span><span class="ch">r</span><span class="ch">y</span><span class="ch">&nbsp;</span><span class="ch">❤️</span>
+            </span>
+          </h1>
+          <p class="sub">Come back, I miss you so much 🥺💖</p>
+          <div class="actions">
+            <a class="back" href="index.html">← Back</a>
+          </div>
+        </div>
+      </div>
+      <div class="below-embed">
+        <div class="tenor-gif-embed" data-postid="11015141574973635572" data-share-method="host" data-aspect-ratio="0.644231" data-width="100%"><a href="https://tenor.com/view/taynew-%E0%B8%99%E0%B8%B4%E0%B8%A7%E0%B8%A7%E0%B8%B5%E0%B9%88-%E0%B9%80%E0%B8%95%E0%B8%95%E0%B8%B0%E0%B8%A7%E0%B8%B1%E0%B8%99-%E0%B9%80%E0%B8%95%E0%B8%99%E0%B8%B4%E0%B8%A7-%E0%B8%A2%E0%B8%B1%E0%B8%A2%E0%B8%8B%E0%B8%B1%E0%B8%87-gif-11015141574973635572">Taynew นิววี่ GIF</a>from <a href="https://tenor.com/search/taynew-gifs">Taynew GIFs</a></div>
+      </div>
+    </div>
+    <div class="hearts" id="hearts"></div>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <script>
+      (function(){
+        'use strict';
+        const hearts = document.getElementById('hearts');
+        const emojis = ['❤️','💖','💕','💗','💓','💝','💘'];
+        function makeHeart(x,y){
+          const el = document.createElement('div');
+          el.className='h';
+          el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+          el.style.left = x + 'px';
+          el.style.top = y + 'px';
+          el.style.fontSize = (Math.random()*18 + 16) + 'px';
+          hearts.appendChild(el);
+          setTimeout(()=>el.remove(), 4000);
+        }
+        // gentle auto hearts
+        setInterval(()=>{
+          const x = Math.random()*window.innerWidth;
+          const y = window.innerHeight;
+          makeHeart(x,y);
+        }, 900);
+        // click to spawn
+        document.addEventListener('click',(e)=>{
+          makeHeart(e.clientX, e.clientY);
+        });
+        // welcome burst
+        setTimeout(()=>{
+          for(let i=0;i<8;i++){
+            setTimeout(()=>{
+              const x = Math.random()*window.innerWidth;
+              const y = window.innerHeight + Math.random()*80;
+              makeHeart(x,y);
+            }, i*160);
+          }
+        }, 400);
+      })();
+    </script>
+  </body>
+  </html>
+

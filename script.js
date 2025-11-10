@@ -132,6 +132,9 @@
     setTimeout(() => {
       button.style.transform = '';
     }, 150);
+
+    // Open love letter modal with typewriter
+    openLoveModal();
   });
 
   // Click anywhere to create hearts
@@ -166,5 +169,79 @@
       }, i * 200);
     }
   }, 500);
+
+  // ===== LOVE LETTER MODAL + TYPEWRITER =====
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalClose = document.getElementById('modalClose');
+  const typewriterEl = document.getElementById('typewriter');
+  let isTyping = false;
+  let typingTimeout;
+
+  const loveMessage = [
+    "Hi Cherry,",
+    "",
+    "You light up my days in the gentlest, brightest ways.",
+    "Every laugh, every glance, every small moment with you—",
+    "it all feels like a beautiful little miracle.",
+    "",
+    "Thank you for being you. I’m really, really glad it’s you.",
+    "Always. 💖"
+  ].join("\n");
+
+  function typeText(element, text, speed = 22) {
+    element.textContent = "";
+    let i = 0;
+    isTyping = true;
+
+    function step() {
+      if (i <= text.length) {
+        element.textContent = text.slice(0, i);
+        i++;
+        typingTimeout = setTimeout(step, speed + Math.random() * 12);
+      } else {
+        isTyping = false;
+      }
+    }
+
+    step();
+  }
+
+  function openLoveModal() {
+    if (!modalBackdrop) return;
+    modalBackdrop.classList.add('show');
+    modalBackdrop.setAttribute('aria-hidden', 'false');
+    clearTimeout(typingTimeout);
+    typeText(typewriterEl, loveMessage);
+  }
+
+  function closeLoveModal() {
+    if (!modalBackdrop) return;
+    modalBackdrop.classList.remove('show');
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+    clearTimeout(typingTimeout);
+    isTyping = false;
+  }
+
+  modalClose && modalClose.addEventListener('click', closeLoveModal);
+  modalBackdrop && modalBackdrop.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) closeLoveModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLoveModal();
+  });
+
+  // ===== POLCASAN MASCOT ASSET LOADER =====
+  // Make mascot spawn hearts on click (overlay captures clicks)
+  const mascotClick = document.getElementById('mascotClick');
+  mascotClick && mascotClick.addEventListener('click', (e) => {
+    const rect = mascotClick.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 3;
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => createFloatingHeart(x + (Math.random() - 0.5) * 120, y + (Math.random() - 0.5) * 60), i * 80);
+    }
+    e.stopPropagation();
+  });
 
 })();

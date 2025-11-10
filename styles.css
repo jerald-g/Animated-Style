@@ -19,7 +19,7 @@ html, body {
 }
 
 body {
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  font-family: 'Poppins', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   color: var(--light);
   display: flex;
@@ -121,6 +121,45 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+}
+
+/* Polcasan mascot beside the card (no box around embed) */
+.mascot {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(24px, -50%);
+  z-index: 9;
+  pointer-events: auto;
+  animation: mascotFloat 5.5s ease-in-out infinite;
+}
+
+.mascot iframe {
+  width: 200px !important;
+  height: auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.mascot .tenor-gif-embed {
+  pointer-events: none;
+}
+
+.mascot-click {
+  position: absolute;
+  inset: 0;
+  width: 200px;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
 /* 3D Heart Container with Glow */
@@ -232,6 +271,11 @@ body {
   animation: cardEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* center contents vertically */
+  min-height: 340px; /* ensure enough height to center within */
 }
 
 @keyframes cardEntrance {
@@ -396,6 +440,9 @@ body {
 .interactive-area {
   margin-top: 1.5rem;
   animation: fadeInScale 0.8s ease-out 1s both;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modern-btn {
@@ -418,6 +465,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin: 0 auto;
 }
 
 @keyframes buttonGlow {
@@ -574,4 +622,119 @@ body {
   }
 }
 
+
+/* ===== Modal & Typewriter ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.6);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 20;
+}
+
+.modal-backdrop.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.message-modal {
+  width: min(680px, 90vw);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 28px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 80px rgba(255, 107, 157, 0.35);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+  position: relative;
+  opacity: 0;
+}
+
+.modal-backdrop.show .message-modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal-title {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  margin-bottom: 0.75rem;
+  background: linear-gradient(45deg, #ffd1dc, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 24px rgba(255, 182, 193, 0.35);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.modal-content {
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  min-height: 120px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-close:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.typewriter {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  white-space: pre-wrap;
+  border-left: 3px solid rgba(255, 255, 255, 0.8);
+  padding-left: 12px;
+  margin-top: 0.5rem;
+  filter: drop-shadow(0 0 18px rgba(255, 107, 157, 0.35));
+}
+
+/* ===== Animated Polka Background ===== */
+.polka {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle at 10px 10px, rgba(255,255,255,0.65) 2px, transparent 3px),
+    radial-gradient(circle at 35px 35px, rgba(255,255,255,0.35) 2px, transparent 3px);
+  background-size: 45px 45px;
+  animation: polkaDrift 14s linear infinite;
+}
+
+@keyframes polkaDrift {
+  0% {
+    transform: translate3d(0,0,0);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: translate3d(15px, -10px, 0);
+    filter: hue-rotate(20deg);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+    filter: hue-rotate(0deg);
+  }
+}
 
