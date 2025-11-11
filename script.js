@@ -180,12 +180,11 @@
   const loveMessage = [
     "Hi Cherry,",
     "",
-    "You light up my days in the gentlest, brightest ways.",
-    "Every laugh, every glance, every small moment with you—",
-    "it all feels like a beautiful little miracle.",
+    "I have not seen you for 2 weeks but it feels like forever.",
+    "Miss you so much 🥺",
     "",
-    "Thank you for being you. I’m really, really glad it’s you.",
-    "Always. 💖"
+    "Cant wait to see you again on Saturday.",
+    "Jerry 💖"
   ].join("\n");
 
   function typeText(element, text, speed = 22) {
