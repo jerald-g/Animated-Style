@@ -126,19 +126,21 @@ body {
 /* Polcasan mascot beside the heart (no box around embed) */
 .mascot {
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 100%;
-  transform: translate(15px, -30%);
+  transform: translate(-20px, -50%);
   z-index: 9;
   pointer-events: auto;
   animation: mascotFloat 5.5s ease-in-out infinite;
   display: flex;
   align-items: center;
+  min-height: 200px;
+  height: 200px;
 }
 
 .mascot iframe {
   width: 200px !important;
-  height: auto !important;
+  height: 200px !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -147,6 +149,8 @@ body {
 
 .mascot .tenor-gif-embed {
   pointer-events: none;
+  min-height: 200px;
+  height: 200px;
 }
 
 .mascot-click {
@@ -160,8 +164,8 @@ body {
 }
 
 @keyframes mascotFloat {
-  0%, 100% { transform: translate(15px, -30%) translateY(0); }
-  50% { transform: translate(0px, -30%) translateY(-12px); }
+  0%, 100% { transform: translate(-20px, -30%) translateY(0); }
+  50% { transform: translate(-20px, -30%) translateY(-12px); }
 }
 
 /* 3D Heart Container with Glow */
