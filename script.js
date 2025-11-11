@@ -180,7 +180,7 @@
   const loveMessage = [
     "Hi Cherry,",
     "",
-    "I have not seen you for 2 weeks but it feels like forever.",
+    "I haven't seen you for 2 weeks,  but it feels like forever",
     "Miss you so much 🥺",
     "",
     "Cant wait to see you again on Saturday.",
