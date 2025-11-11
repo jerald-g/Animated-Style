@@ -123,15 +123,17 @@ body {
   gap: 2rem;
 }
 
-/* Polcasan mascot beside the card (no box around embed) */
+/* Polcasan mascot beside the heart (no box around embed) */
 .mascot {
   position: absolute;
   top: 50%;
   left: 100%;
-  transform: translate(24px, -50%);
+  transform: translate(15px, -30%);
   z-index: 9;
   pointer-events: auto;
   animation: mascotFloat 5.5s ease-in-out infinite;
+  display: flex;
+  align-items: center;
 }
 
 .mascot iframe {
@@ -158,8 +160,8 @@ body {
 }
 
 @keyframes mascotFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%, 100% { transform: translate(15px, -30%) translateY(0); }
+  50% { transform: translate(0px, -30%) translateY(-12px); }
 }
 
 /* 3D Heart Container with Glow */
@@ -397,6 +399,10 @@ body {
   animation: textPulse 2s ease-in-out infinite, textGlow 3s ease-in-out infinite;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
                0 0 40px rgba(255, 107, 157, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 @keyframes textPulse {
